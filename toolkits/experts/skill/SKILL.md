@@ -44,11 +44,10 @@ Start with:
 
 2. Discover dynamically.
    - Use `./install.sh --list` for available experts.
-   - Do not hardcode expert names in answers, routing, or installation logic.
-   - Accept friendly names by matching against the dynamic list when there is exactly one clear match.
+   - Use the current synced repo contents as the source of truth.
 
 3. Install experts directly when requested.
-   - Run `./install.sh --expert <expert-name> --hydrate` by default.
+   - Run `./install.sh --expert <expert-name> --hydrate` by default, using the package name from the current repo.
    - If hydration fails because network access is unavailable, rerun without `--hydrate`.
    - Use `--all --hydrate` only when the user explicitly asks for every expert.
    - Tell the user to restart or reload the relevant agent harness if new skills or agents do not appear immediately.
@@ -62,7 +61,7 @@ Start with:
 
 5. Update the local Experts checkout when requested.
    - Fetch or clone from `EXPERTS_REPO_URL` into `EXPERTS_REPO_CACHE`.
-   - After updating, list experts dynamically if the user asks what changed or what is available.
+   - After updating, list experts if the user asks what changed or what is available.
 
 ## Command Semantics
 
@@ -73,10 +72,10 @@ Suggested interpretations:
 | User wording | Action |
 | --- | --- |
 | `Experts: list available experts` | Sync from `EXPERTS_REPO_URL`, then run `./install.sh --list`. |
-| `Experts: install <name>` | Resolve `<name>` from the dynamic list and install that expert. |
+| `Experts: install <name>` | Install the requested expert from the synced repo. |
 | `Experts: install all` | Confirm the user means all experts, then run `./install.sh --all --hydrate`. |
 | `Experts: create a new expert for <domain>` | Follow the repo's create-expert template. |
-| `Experts: update from the repo` | Update the remembered checkout, then report the current dynamic expert list if useful. |
+| `Experts: update from the repo` | Update the remembered checkout, then report the available experts if useful. |
 | `Experts: where is the repo?` | Show the remembered repo root, cache path, and source URL. |
 
 ## Source Discipline
@@ -92,7 +91,7 @@ For project mechanics, use the synced checkout from `EXPERTS_REPO_URL` as the so
 - `$HOME/.agents/toolkits/experts/manifest.json`
 - `$HOME/.agents/toolkits/experts/adapter.md`
 
-If synced repo files disagree with this helper skill, follow the synced repo files and mention the mismatch.
+If synced repo files disagree with this helper skill, follow the synced repo files and mention the conflict.
 
 ## Response Style
 

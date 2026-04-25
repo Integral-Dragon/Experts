@@ -29,6 +29,6 @@ Available experts are discovered by running:
 ./install.sh --list
 ```
 
-Do not hardcode the expert index in this helper. Expert packages are expected to change over time.
+Expert packages are expected to change over time.
 
 Before listing, installing, or creating experts, sync the working checkout from `EXPERTS_REPO_URL`. The cache is only an execution location, not the authority.

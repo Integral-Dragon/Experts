@@ -29,9 +29,7 @@ Treat `Install Experts ...` as a request to install the shared Experts helper, n
 ./install.sh --list
 ```
 
-3. If the user used a friendly name like `Codex expert`, inspect the dynamic expert list and choose the obvious match. If multiple experts could match, ask which one they mean.
-
-4. Install the requested expert:
+3. Install the requested expert:
 
 ```bash
 ./install.sh --expert <expert-name> --hydrate
@@ -47,26 +45,26 @@ Installing an expert also installs or refreshes the single shared Experts helper
 
 ```text
 Experts: list available experts
-Experts: install <expert-name-or-friendly-name>
+Experts: install <expert>
 Experts: create a new expert for <domain>
 Experts: update from the repo
 ```
 
 Harness-specific aliases such as `$experts` or `@experts` are optional adapter conveniences, not the portable interface. In Claude or any harness without dollar-prefixed routing, use ordinary natural language that names the Experts helper.
 
-Do not hardcode the current expert index into helper behavior. For Experts helper workflows, sync from the remembered repo URL first, then discover available experts with:
+For Experts helper workflows, sync from the remembered repo URL first, then discover available experts with:
 
 ```bash
 ./install.sh --list
 ```
 
-5. If network access is unavailable, omit hydration:
+4. If network access is unavailable, omit hydration:
 
 ```bash
 ./install.sh --expert <expert-name>
 ```
 
-6. Tell the user to restart or reload the relevant agent harness if the expert or shared Experts helper does not appear immediately.
+5. Tell the user to restart or reload the relevant agent harness if the expert or shared Experts helper does not appear immediately.
 
 Skip the helper only when explicitly requested:
 

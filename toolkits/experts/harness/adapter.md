@@ -48,7 +48,7 @@ Discover experts with:
 ./install.sh --list
 ```
 
-Never hardcode expert names in the harness adapter.
+Use the synced repo as the source of truth for available experts.
 
 ## Operations
 
