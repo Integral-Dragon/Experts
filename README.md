@@ -2,7 +2,7 @@
 
 Expert packs for AI coding agents.
 
-## 📋 Available Experts
+## Available Experts
 
 | Expert | Description |
 |--------|-------------|
