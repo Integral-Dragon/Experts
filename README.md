@@ -9,6 +9,8 @@ Each expert installs as:
 - a Claude agent,
 - official-source manifests and sync scripts for local documentation caches.
 
+By default, installing any expert also installs a lightweight `$experts` helper. That helper remembers this repo URL, syncs a working checkout from it, and gives future agent sessions a shortcut for listing, installing, updating, and creating experts without retyping the URL.
+
 ## Quick Agent Prompt
 
 Point an agent at this repo and say:
@@ -37,6 +39,8 @@ Install one expert:
 ./install.sh --expert codex-principal-engineer --hydrate
 ```
 
+This also installs the reusable `$experts` helper unless you pass `--no-experts-toolkit`.
+
 Install all experts:
 
 ```bash
@@ -55,7 +59,26 @@ List available experts:
 ./install.sh --list
 ```
 
+Install only the reusable helper:
+
+```bash
+./install.sh --experts-toolkit-only
+```
+
 Restart your agent harness after installation if the new expert does not appear.
+
+## Reuse With `$experts`
+
+After any normal install, you can ask future agent sessions to use `$experts` instead of pasting this repository URL again:
+
+```text
+$experts list
+$experts install firecracker
+$experts create a new expert for Shopify
+$experts update
+```
+
+The helper syncs from the remembered repo URL, then discovers available experts dynamically by running `./install.sh --list`. It does not hardcode the current Expert Index, so newly added experts are picked up from the repo structure.
 
 ## What Gets Installed
 
@@ -67,6 +90,10 @@ The installer writes to the current user's standard agent locations:
 | Knowledge manifests and sync scripts | `$HOME/.agents/knowledge/<domain>/` |
 | Codex custom agents | `$HOME/.codex/agents/<expert>.toml` |
 | Claude agents | `$HOME/.claude/agents/<expert>.md` |
+| `$experts` helper skill | `$HOME/.agents/skills/experts/` |
+| `$experts` helper state | `$HOME/.agents/knowledge/experts/install-state.env` |
+| `$experts` Codex agent | `$HOME/.codex/agents/experts.toml` |
+| `$experts` Claude agent | `$HOME/.claude/agents/experts.md` |
 
 Codex agent files are rendered from templates, so installed paths use the current user's `$HOME`.
 

@@ -23,13 +23,40 @@ Install the codex-principal-engineer expert from https://github.com/Integral-Dra
 ./install.sh --expert <expert-name> --hydrate
 ```
 
+This also installs the reusable `$experts` helper by default. The helper remembers this repo URL, syncs a working checkout from it, and lets future sessions handle prompts like:
+
+```text
+$experts list
+$experts install <expert-name-or-friendly-name>
+$experts create a new expert for <domain>
+$experts update
+```
+
+Do not hardcode the current expert index into helper behavior. For `$experts` workflows, sync from the remembered repo URL first, then discover available experts with:
+
+```bash
+./install.sh --list
+```
+
 4. If network access is unavailable, omit hydration:
 
 ```bash
 ./install.sh --expert <expert-name>
 ```
 
-5. Tell the user to restart Codex, Claude, or the relevant harness if the expert does not appear immediately.
+5. Tell the user to restart Codex, Claude, or the relevant harness if the expert or `$experts` helper does not appear immediately.
+
+Skip the helper only when explicitly requested:
+
+```bash
+./install.sh --expert <expert-name> --no-experts-toolkit
+```
+
+Install only the helper when requested:
+
+```bash
+./install.sh --experts-toolkit-only
+```
 
 Install all experts only when the user asks:
 
@@ -53,6 +80,10 @@ The installer writes to the active user's home directory:
 | Knowledge manifests and sync scripts | `$HOME/.agents/knowledge/<domain>/` |
 | Codex custom agents | `$HOME/.codex/agents/<expert>.toml` |
 | Claude agents | `$HOME/.claude/agents/<expert>.md` |
+| `$experts` helper skill | `$HOME/.agents/skills/experts/` |
+| `$experts` helper state | `$HOME/.agents/knowledge/experts/install-state.env` |
+| `$experts` Codex agent | `$HOME/.codex/agents/experts.toml` |
+| `$experts` Claude agent | `$HOME/.claude/agents/experts.md` |
 
 Codex custom agents are rendered from templates so paths use the installing user's `$HOME`.
 

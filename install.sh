@@ -8,6 +8,8 @@ hydrate=false
 dry_run=false
 install_codex=true
 install_claude=true
+install_experts_toolkit=true
+experts_toolkit_only=false
 selected=()
 
 usage() {
@@ -15,11 +17,18 @@ usage() {
 Usage:
   ./install.sh --all [--hydrate]
   ./install.sh --expert <name> [--expert <name>] [--hydrate]
+  ./install.sh --experts-toolkit-only
 
 Options:
   --all            Install every expert in this repo.
   --expert NAME    Install one expert. May be repeated.
   --hydrate        Fetch official upstream docs after installing manifests/scripts.
+  --with-experts-toolkit
+                   Install the reusable $experts helper skill and agents. This is the default.
+  --no-experts-toolkit
+                   Skip the reusable $experts helper skill and agents.
+  --experts-toolkit-only
+                   Install only the reusable $experts helper skill and agents.
   --list           List available experts.
   --home DIR       Install into DIR instead of $HOME. Useful for tests.
   --no-codex       Skip Codex custom-agent installation.
@@ -81,6 +90,55 @@ render_template() {
   else
     mkdir -p "$(dirname "${dest}")"
     sed "s|{{HOME}}|${escaped_home}|g" "${src}" > "${dest}"
+  fi
+}
+
+write_experts_toolkit_state() {
+  local dest="${home_dir}/.agents/knowledge/experts/install-state.env"
+  local repo_url="${EXPERTS_REPO_URL:-https://github.com/Integral-Dragon/Experts}"
+
+  log "Write Experts toolkit state -> ${dest}"
+  if "${dry_run}"; then
+    log "[dry-run] mkdir -p $(dirname "${dest}")"
+    log "[dry-run] write repo_root=${repo_root}, repo_url=${repo_url}"
+  else
+    mkdir -p "$(dirname "${dest}")"
+    {
+      printf 'EXPERTS_REPO_ROOT=%q\n' "${repo_root}"
+      printf 'EXPERTS_REPO_URL=%q\n' "${repo_url}"
+      printf 'EXPERTS_REPO_CACHE=%q\n' "${home_dir}/.agents/repos/Experts"
+    } > "${dest}"
+  fi
+}
+
+install_experts_helper() {
+  local src="${repo_root}/toolkits/experts"
+
+  if [[ ! -f "${src}/skill/SKILL.md" ]]; then
+    log "Missing Experts toolkit package: ${src}" >&2
+    exit 1
+  fi
+
+  copy_tree_contents "${src}/skill" "${home_dir}/.agents/skills/experts"
+  copy_tree_contents "${src}/knowledge" "${home_dir}/.agents/knowledge/experts"
+  write_experts_toolkit_state
+
+  if "${install_codex}"; then
+    local template="${src}/agents/codex/experts.toml.template"
+    if [[ -f "${template}" ]]; then
+      render_template "${template}" "${home_dir}/.codex/agents/experts.toml"
+    else
+      log "No Codex template for Experts toolkit; skipping"
+    fi
+  fi
+
+  if "${install_claude}"; then
+    local claude_agent="${src}/agents/claude/experts.md"
+    if [[ -f "${claude_agent}" ]]; then
+      copy_tree_contents "$(dirname "${claude_agent}")" "${home_dir}/.claude/agents"
+    else
+      log "No Claude agent for Experts toolkit; skipping"
+    fi
   fi
 }
 
@@ -150,6 +208,19 @@ while [[ $# -gt 0 ]]; do
       hydrate=true
       shift
       ;;
+    --with-experts-toolkit)
+      install_experts_toolkit=true
+      shift
+      ;;
+    --no-experts-toolkit)
+      install_experts_toolkit=false
+      shift
+      ;;
+    --experts-toolkit-only)
+      experts_toolkit_only=true
+      install_experts_toolkit=true
+      shift
+      ;;
     --list)
       available_experts
       exit 0
@@ -190,14 +261,20 @@ if "${install_all}"; then
   mapfile -t selected < <(available_experts)
 fi
 
-if [[ ${#selected[@]} -eq 0 ]]; then
+if [[ ${#selected[@]} -eq 0 && "${experts_toolkit_only}" != true ]]; then
   log "No expert selected. Use --all or --expert <name>." >&2
   usage >&2
   exit 1
 fi
 
-for expert in "${selected[@]}"; do
-  install_expert "${expert}"
-done
+if [[ "${experts_toolkit_only}" != true ]]; then
+  for expert in "${selected[@]}"; do
+    install_expert "${expert}"
+  done
+fi
 
-log "Installation complete. Restart Codex or Claude if a running session does not show new experts."
+if "${install_experts_toolkit}"; then
+  install_experts_helper
+fi
+
+log 'Installation complete. Restart Codex or Claude if a running session does not show new experts or the $experts helper.'
