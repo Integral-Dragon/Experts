@@ -54,6 +54,7 @@ It also installs one shared Experts helper. The helper remembers this repo, sync
 - `codex-principal-engineer` - OpenAI Codex expert for CLI, sandboxing, approvals, config, AGENTS.md, rules, skills, plugins, MCP, subagents, app, IDE, cloud, SDK, and non-interactive workflows.
 - `firecracker-principal-engineer` - Firecracker expert for microVM architecture, APIs, security model, jailer behavior, networking, storage, snapshots, and source-grounded operations.
 - `linux-systems-principal-engineer` - Linux systems expert for kernel, systemd, networking, nftables, QEMU, OCI runtime behavior, and production systems debugging.
+- `oxv2-principal-engineer` - oxv2 expert for event-sourced multi-agent orchestration, seguro VM runners, complex/cx event ingestion, workflows, runtimes, storage, APIs, git integration, and source-derived architecture.
 - `pi-principal-engineer` - Pi coding agent expert for CLI/TUI workflows, providers, settings, sessions, context files, skills, extensions, packages, SDK, RPC, JSON mode, terminal setup, and source-grounded behavior.
 
 ## For Agents

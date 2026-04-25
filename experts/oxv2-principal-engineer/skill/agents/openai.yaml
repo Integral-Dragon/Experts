@@ -1,0 +1,8 @@
+interface:
+  display_name: "oxv2 Principal Engineer"
+  short_description: "Official/team-source oxv2 expert for event-sourced multi-agent orchestration, seguro VM runners, complex/cx event ingestion, workflows, runtimes, storage, APIs, git integration, and source-derived architecture."
+  default_prompt: "Use $oxv2-principal-engineer for oxv2, seguro runner, and complex/cx integration questions grounded in the supplied team repositories."
+  brand_color: "#2563EB"
+
+policy:
+  allow_implicit_invocation: true
