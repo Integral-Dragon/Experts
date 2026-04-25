@@ -67,11 +67,14 @@ If a user says `Create a new expert for <domain>`, follow [templates/CREATE_EXPE
 Expected flow:
 
 1. Clarify scope only when needed.
-2. Identify or propose official docs, source repos, specs, or user-approved authoritative sources.
-3. Scaffold with `scripts/scaffold-expert.sh`.
-4. Fill the source manifest, consulting playbook, sync script, skill, and Codex/Claude agents.
-5. Update the README Expert Index.
-6. Validate before committing.
+2. Clarify delivery only when needed: local-only, private/internal, or PR back to this repo.
+3. Identify or propose official docs, source repos, specs, or user-approved authoritative sources.
+4. Scaffold with `scripts/scaffold-expert.sh`.
+5. Fill the source manifest, consulting playbook, sync script, skill, and Codex/Claude agents.
+6. Update the README Expert Index only for shared-repo or PR work.
+7. Validate before installing, committing, or opening a PR.
+
+Do not assume publishing. For local-only experts, install them and stop. Commit, push, or open a PR only when the user asks for that outcome.
 
 For file-level requirements, follow [templates/EXPERT_BLUEPRINT.md](templates/EXPERT_BLUEPRINT.md).
 
@@ -88,7 +91,7 @@ experts/<expert-name>/
   agents/claude/<expert-name>.md
 ```
 
-Validate before committing:
+Validate before installing, committing, or opening a PR:
 
 ```bash
 ./install.sh --expert <expert-name> --dry-run

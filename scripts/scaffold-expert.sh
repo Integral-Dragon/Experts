@@ -76,7 +76,7 @@ shell_quote_array() {
 markdown_sources() {
   local source
   if [[ ${#sources[@]} -eq 0 ]]; then
-    printf '%s\n' "- Add official docs, source repos, specs, or authoritative project docs before publishing."
+    printf '%s\n' "- Add official docs, source repos, specs, or authoritative project docs before installing or sharing."
   else
     for source in "${sources[@]}"; do
       printf '%s\n' "- ${source}"
@@ -235,7 +235,7 @@ EOF
 write_file "${expert_dir}/knowledge/official-sources.md" <<EOF
 # ${display_name} Official Sources
 
-Complete this manifest before publishing the expert. Use live sources for current questions and pin a repeatable commit, version, or release when repeatability matters.
+Complete this manifest before installing, sharing, or publishing the expert. Use live sources for current questions and pin a repeatable commit, version, or release when repeatability matters.
 
 ## Roots
 

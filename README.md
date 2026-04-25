@@ -90,7 +90,7 @@ Ask an agent:
 Create a new expert for Shopify from https://github.com/Integral-Dragon/Experts
 ```
 
-The agent should follow [templates/CREATE_EXPERT.md](templates/CREATE_EXPERT.md): clarify scope when needed, identify official sources, scaffold the package, customize hydration, update this index, and validate the result.
+The agent should follow [templates/CREATE_EXPERT.md](templates/CREATE_EXPERT.md): clarify scope and delivery when needed, identify official sources, scaffold the package, customize hydration, validate the result, and either install it locally or help prepare a PR if you ask.
 
 New experts go under:
 

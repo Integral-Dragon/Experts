@@ -14,6 +14,7 @@ Your job is to turn the request into a complete expert package that follows this
    - If the domain is broad, ask what scope matters most.
    - If it is a custom project or framework, ask for the official repo and docs path.
    - If official sources are unclear, propose likely official sources and ask for confirmation.
+   - If delivery is unclear, ask whether the expert is local-only, private/internal, or intended for a PR back to this repo.
 
 2. Define the expert contract.
    - Expert name: `<domain>-principal-engineer`
@@ -43,7 +44,7 @@ Add `--source` more than once for multiple official roots.
    - Replace generic topic placeholders in `knowledge/official-sources.md`.
    - Customize `knowledge/scripts/sync-<domain>-docs.sh` so `--hydrate` fetches the relevant official docs/source files without broad crawling.
    - Tighten `skill/SKILL.md`, `agents/codex/*.toml.template`, and `agents/claude/*.md` around the exact domain.
-   - Update the README Expert Index.
+   - Update the README Expert Index only when the expert should be part of the shared repo or a PR.
 
 6. Validate:
 
@@ -58,6 +59,16 @@ When practical, test hydration into a temporary home:
 ./install.sh --expert <expert-name> --hydrate --home /tmp/experts-home-test
 ```
 
+## Delivery Modes
+
+Do not assume the user wants to publish. Support these outcomes:
+
+| Mode | What to do |
+| --- | --- |
+| Local only | Build the expert in the local checkout, validate it, run `./install.sh --expert <expert-name> --hydrate`, and stop. Do not commit, push, or open a PR unless asked. |
+| Private or internal | Build and validate the expert, then help the user keep it in their own repo, fork, branch, or internal package path. |
+| Contribute upstream | Build and validate the expert, update the README Expert Index, commit the change, push a branch, and open a PR to this repo only after the user asks. |
+
 ## Useful Questions
 
 Ask the smallest useful question. Good prompts:
@@ -66,11 +77,13 @@ Ask the smallest useful question. Good prompts:
 - "Which repo, docs site, or spec should be treated as authoritative?"
 - "Should examples and recipes count as official source material, or only reference docs and source code?"
 - "For this custom framework, which branch or release should the expert pin as its repeatable baseline?"
+- "Should this stay local for your machine, live in your own repo, or be prepared as a PR to the shared Experts repo?"
 
 ## Done Means
 
 - The package installs with `install.sh`.
 - Hydration fetches only official or user-approved authoritative sources.
 - The skill uses progressive disclosure and does not embed a large documentation dump.
-- The README index includes the new expert.
+- The README index includes the new expert only for shared-repo or PR work.
 - Concrete claims in the expert instructions distinguish documented facts, source-derived inference, local observations, and uncertainty.
+- The final handoff matches the requested delivery mode: installed locally, prepared privately, or proposed as a PR.
