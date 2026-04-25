@@ -50,6 +50,7 @@ It also installs one shared Experts helper. The helper remembers this repo, sync
 
 ## Expert Index
 
+- `claude-code-principal-engineer` - Claude Code expert for CLI, IDE, Desktop, Web/cloud, permissions, settings, CLAUDE.md, skills, subagents, hooks, MCP, plugins, Agent SDK, CI/CD, sandboxing, and source-grounded behavior.
 - `codex-principal-engineer` - OpenAI Codex expert for CLI, sandboxing, approvals, config, AGENTS.md, rules, skills, plugins, MCP, subagents, app, IDE, cloud, SDK, and non-interactive workflows.
 - `firecracker-principal-engineer` - Firecracker expert for microVM architecture, APIs, security model, jailer behavior, networking, storage, snapshots, and source-grounded operations.
 - `linux-systems-principal-engineer` - Linux systems expert for kernel, systemd, networking, nftables, QEMU, OCI runtime behavior, and production systems debugging.

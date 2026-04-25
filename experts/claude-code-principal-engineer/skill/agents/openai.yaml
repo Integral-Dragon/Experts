@@ -1,0 +1,8 @@
+interface:
+  display_name: "Claude Code Principal Engineer"
+  short_description: "Official-source Claude Code expert for CLI, IDE/desktop/web surfaces, permissions, settings, CLAUDE.md, skills, subagents, hooks, MCP, plugins, Agent SDK, CI/CD, sandboxing, and source-grounded behavior."
+  default_prompt: "Use $claude-code-principal-engineer for Claude Code questions from official or user-approved authoritative sources."
+  brand_color: "#D97706"
+
+policy:
+  allow_implicit_invocation: true
