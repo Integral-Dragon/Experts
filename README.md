@@ -2,6 +2,19 @@
 
 Expert packs for AI coding agents.
 
+## 📋 Available Experts
+
+| Expert | Description |
+|--------|-------------|
+| **claude-code-principal-engineer** | Claude Code expert for CLI, IDE, Desktop, Web/cloud, permissions, settings, CLAUDE.md, skills, subagents, hooks, MCP, plugins, Agent SDK, CI/CD, and sandboxing. |
+| **codex-principal-engineer** | OpenAI Codex expert for CLI, sandboxing, approvals, config, AGENTS.md, rules, skills, plugins, MCP, subagents, app, IDE, cloud, SDK, and non-interactive workflows. |
+| **firecracker-principal-engineer** | Firecracker expert for microVM architecture, APIs, security model, jailer behavior, networking, storage, snapshots, and source-grounded operations. |
+| **linux-systems-principal-engineer** | Linux systems expert for kernel, systemd, networking, nftables, QEMU, OCI runtime behavior, and production systems debugging. |
+| **oxv2-principal-engineer** | oxv2 expert for event-sourced multi-agent orchestration, seguro VM runners, complex/cx event ingestion, workflows, runtimes, storage, APIs, git integration, and source operations. |
+| **pi-principal-engineer** | Pi coding agent expert for CLI/TUI workflows, providers, settings, sessions, context files, skills, extensions, packages, SDK, RPC, JSON mode, terminal setup, and source operations. |
+
+## Quick Start
+
 Prompt your agent like this:
 
 ```text
@@ -46,16 +59,7 @@ Experts installs agent-usable specialist packs:
 - optional hydrated official docs,
 - harness adapters where supported.
 
-It also installs one shared Experts helper. The helper remembers this repo, syncs the latest version before list/install/create operations, and discovers available experts from the repo. It is not copied per expert.
-
-## Expert Index
-
-- `claude-code-principal-engineer` - Claude Code expert for CLI, IDE, Desktop, Web/cloud, permissions, settings, CLAUDE.md, skills, subagents, hooks, MCP, plugins, Agent SDK, CI/CD, sandboxing, and source-grounded behavior.
-- `codex-principal-engineer` - OpenAI Codex expert for CLI, sandboxing, approvals, config, AGENTS.md, rules, skills, plugins, MCP, subagents, app, IDE, cloud, SDK, and non-interactive workflows.
-- `firecracker-principal-engineer` - Firecracker expert for microVM architecture, APIs, security model, jailer behavior, networking, storage, snapshots, and source-grounded operations.
-- `linux-systems-principal-engineer` - Linux systems expert for kernel, systemd, networking, nftables, QEMU, OCI runtime behavior, and production systems debugging.
-- `oxv2-principal-engineer` - oxv2 expert for event-sourced multi-agent orchestration, seguro VM runners, complex/cx event ingestion, workflows, runtimes, storage, APIs, git integration, and source-derived architecture.
-- `pi-principal-engineer` - Pi coding agent expert for CLI/TUI workflows, providers, settings, sessions, context files, skills, extensions, packages, SDK, RPC, JSON mode, terminal setup, and source-grounded behavior.
+It also installs one shared Experts helper. The helper remembers this repo, syncs the latest version before list/install/create operations, and discovers available experts from the repo. It is not required for agents to use Experts if they can read and use the files directly.
 
 ## For Agents
 
