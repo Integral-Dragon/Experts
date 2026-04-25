@@ -24,11 +24,11 @@ Options:
   --expert NAME    Install one expert. May be repeated.
   --hydrate        Fetch official upstream docs after installing manifests/scripts.
   --with-experts-toolkit
-                   Install the reusable Experts helper skill and agents. This is the default.
+                   Install or refresh the shared Experts helper skill and agents. This is the default.
   --no-experts-toolkit
-                   Skip the reusable Experts helper skill and agents.
+                   Skip the shared Experts helper skill and agents.
   --experts-toolkit-only
-                   Install only the reusable Experts helper skill and agents.
+                   Install only the shared Experts helper skill and agents.
   --list           List available experts.
   --home DIR       Install into DIR instead of $HOME. Useful for tests.
   --no-codex       Skip Codex custom-agent installation.

@@ -9,7 +9,7 @@ Use this skill when the user names the Experts helper or asks to manage reusable
 
 ## Purpose
 
-Provide a persistent, repo-aware interface for the Experts project after the user has installed it once. The user should be able to say things like:
+Provide a persistent, repo-aware interface for the Experts project after the user has installed the shared helper once. The user should be able to say things like:
 
 - `Experts: list available experts`
 - `Experts: install <name>`
@@ -19,7 +19,7 @@ Provide a persistent, repo-aware interface for the Experts project after the use
 
 Harness-specific aliases such as `$experts`, `@experts`, or slash commands are optional adapter conveniences. Do not assume they work in every harness.
 
-Do not require the user to remember or paste the GitHub URL again. The installed state records the URL, and the helper should use that URL to sync a fresh local cache before listing or installing experts.
+Do not require the user to remember or paste the GitHub URL again. The installed state records the URL, and the helper should use that URL to sync a fresh local cache before listing or installing experts. This is one shared helper per user environment, not a helper copied or specialized per expert.
 
 ## Remembered State
 

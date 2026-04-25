@@ -1,6 +1,6 @@
 # Agent Instructions
 
-If a user asks you to install an expert from this repo, do it directly.
+If a user asks you to install an expert or the Experts helper from this repo, do it directly.
 
 This repo is designed for AI coding-agent harnesses first. Codex and Claude adapters are built in, but the durable interface is the harness-neutral `.agents` tree:
 
@@ -11,10 +11,16 @@ This repo is designed for AI coding-agent harnesses first. Codex and Claude adap
 
 Other harnesses such as Pi, OpenCode, Hermes, or future agents should load those portable files and adapt their own native agent format around them.
 
-The intended user prompt is this simple:
+The intended first-time user prompts are simple:
 
 ```text
 Install the codex-principal-engineer expert from https://github.com/Integral-Dragon/Experts
+```
+
+Or, to bootstrap only the shared helper first:
+
+```text
+Install the Experts helper from https://github.com/Integral-Dragon/Experts
 ```
 
 ## Install Flow
@@ -32,7 +38,13 @@ Install the codex-principal-engineer expert from https://github.com/Integral-Dra
 ./install.sh --expert <expert-name> --hydrate
 ```
 
-This also installs the reusable Experts helper by default. The helper remembers this repo URL, syncs a working checkout from it, and lets future sessions handle prompts like:
+If the user asked only for the shared helper, run:
+
+```bash
+./install.sh --experts-toolkit-only
+```
+
+Installing an expert also installs or refreshes the single shared Experts helper by default. It does not create one helper per expert. The helper remembers this repo URL, syncs a working checkout from it, and lets future sessions handle prompts like:
 
 ```text
 Experts: list available experts
@@ -55,7 +67,7 @@ Do not hardcode the current expert index into helper behavior. For Experts helpe
 ./install.sh --expert <expert-name>
 ```
 
-5. Tell the user to restart or reload the relevant agent harness if the expert or Experts helper does not appear immediately.
+5. Tell the user to restart or reload the relevant agent harness if the expert or shared Experts helper does not appear immediately.
 
 Skip the helper only when explicitly requested:
 
@@ -63,7 +75,7 @@ Skip the helper only when explicitly requested:
 ./install.sh --expert <expert-name> --no-experts-toolkit
 ```
 
-Install only the helper when requested:
+Install only the shared helper when requested:
 
 ```bash
 ./install.sh --experts-toolkit-only
@@ -91,7 +103,7 @@ The installer writes to the active user's home directory:
 | Knowledge manifests and sync scripts | `$HOME/.agents/knowledge/<domain>/` |
 | Codex custom agents | `$HOME/.codex/agents/<expert>.toml` |
 | Claude agents | `$HOME/.claude/agents/<expert>.md` |
-| Experts helper skill | `$HOME/.agents/skills/experts/` |
+| Shared Experts helper skill | `$HOME/.agents/skills/experts/` |
 | Experts helper state | `$HOME/.agents/knowledge/experts/install-state.env` |
 | Experts harness manifest | `$HOME/.agents/toolkits/experts/manifest.json` |
 | Experts generic adapter contract | `$HOME/.agents/toolkits/experts/adapter.md` |

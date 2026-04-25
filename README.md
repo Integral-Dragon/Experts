@@ -2,20 +2,19 @@
 
 Reusable expert packages for AI coding-agent harnesses.
 
-This project is meant to be used primarily by agents, not as a human-facing package catalog. A user should be able to point Codex, Claude, Pi, OpenCode, Hermes, or another coding-agent harness at this repo once, install an expert or the Experts helper, and then manage experts through natural-language agent prompts after that.
+This project is meant to be used primarily by agents, not as a human-facing package catalog. A user should be able to point Codex, Claude, Pi, OpenCode, Hermes, or another coding-agent harness at this repo once, install an expert or the shared Experts helper, and then manage experts through natural-language agent prompts after that.
 
-Each expert installs as:
+Each expert package contains:
 
 - a progressive-disclosure skill,
-- a harness-neutral knowledge/source manifest,
-- optional harness-specific agent adapters,
-- official-source manifests and sync scripts for local documentation caches.
+- official-source manifests and sync scripts for local documentation caches,
+- optional harness-specific agent adapters.
 
-By default, installing any expert also installs a lightweight Experts helper. That helper remembers this repo URL, syncs a working checkout from it, and gives future agent sessions a shortcut for listing, installing, updating, and creating experts without retyping the URL.
+The repo also includes one shared Experts helper. Installing an expert installs or refreshes that shared helper by default; it does not create a separate helper per expert. The helper remembers this repo URL, syncs a working checkout from it, and lets future agent sessions list, install, update, and create experts without retyping the URL.
 
 Codex and Claude adapters are included today because they have known local agent formats. Other harnesses can integrate by loading the harness-neutral files installed under `$HOME/.agents/`.
 
-## Quick Agent Prompt
+## First-Time Agent Prompt
 
 Point an agent at this repo and say:
 
@@ -25,9 +24,15 @@ Install the codex-principal-engineer expert from https://github.com/Integral-Dra
 
 That should be enough. The agent should read `AGENTS.md`, clone or open the repo, and run the installer.
 
+To install only the shared helper first:
+
+```text
+Install the Experts helper from https://github.com/Integral-Dragon/Experts
+```
+
 ## Expert Index
 
-Click an expert to inspect its package. Use the expert name directly in the install prompt.
+Use an expert name directly in an install prompt. Agents should treat this index as documentation only; available experts are discovered dynamically with `./install.sh --list`.
 
 | Expert | What it helps with |
 | --- | --- |
@@ -43,7 +48,7 @@ Install one expert:
 ./install.sh --expert codex-principal-engineer --hydrate
 ```
 
-This also installs the reusable Experts helper unless you pass `--no-experts-toolkit`.
+This also installs or refreshes the single shared Experts helper unless you pass `--no-experts-toolkit`.
 
 Install all experts:
 
@@ -63,17 +68,17 @@ List available experts:
 ./install.sh --list
 ```
 
-Install only the reusable helper:
+Install only the shared helper:
 
 ```bash
 ./install.sh --experts-toolkit-only
 ```
 
-Restart or reload your agent harness after installation if the new expert does not appear.
+Restart or reload your agent harness after installation if the new expert or shared helper does not appear.
 
 ## Reuse With Agent Prompts
 
-After any normal install, ask future agent sessions to use the Experts helper instead of pasting this repository URL again:
+After the shared helper has been installed, ask future agent sessions to use the Experts helper instead of pasting this repository URL again:
 
 ```text
 Experts: list available experts
@@ -109,7 +114,7 @@ The installer writes to the current user's standard agent locations:
 | Knowledge manifests and sync scripts | `$HOME/.agents/knowledge/<domain>/` |
 | Codex custom agents | `$HOME/.codex/agents/<expert>.toml` |
 | Claude agents | `$HOME/.claude/agents/<expert>.md` |
-| Experts helper skill | `$HOME/.agents/skills/experts/` |
+| Shared Experts helper skill | `$HOME/.agents/skills/experts/` |
 | Experts helper state | `$HOME/.agents/knowledge/experts/install-state.env` |
 | Experts harness manifest | `$HOME/.agents/toolkits/experts/manifest.json` |
 | Experts generic adapter contract | `$HOME/.agents/toolkits/experts/adapter.md` |

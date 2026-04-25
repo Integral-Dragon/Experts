@@ -2,7 +2,7 @@
   "schema_version": 1,
   "name": "experts",
   "display_name": "Experts",
-  "description": "Harness-neutral helper for listing, installing, updating, creating, scaffolding, and validating reusable Experts packages.",
+  "description": "Shared harness-neutral helper for listing, installing, updating, creating, scaffolding, and validating reusable Experts packages.",
   "invocation_hints": [
     "Experts:",
     "use the Experts helper",

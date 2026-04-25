@@ -2,7 +2,7 @@
 
 Use this file to integrate the Experts helper with any AI coding-agent harness.
 
-The project is intentionally harness-neutral. Codex and Claude adapters are included because they have known local agent formats, but the core interface is the installed skill, knowledge state, and this manifest.
+The project is intentionally harness-neutral. Codex and Claude adapters are included because they have known local agent formats, but the core interface is the installed skill, knowledge state, and this manifest. The Experts helper is a shared user-scoped toolkit; individual experts do not get separate helper instances.
 
 ## Invocation
 
