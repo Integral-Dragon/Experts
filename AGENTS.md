@@ -62,7 +62,18 @@ Do not bulk-load hydrated upstream docs. Start with the expert's skill and `know
 
 ## Add A New Expert
 
-Follow [templates/EXPERT_BLUEPRINT.md](templates/EXPERT_BLUEPRINT.md).
+If a user says `Create a new expert for <domain>`, follow [templates/CREATE_EXPERT.md](templates/CREATE_EXPERT.md).
+
+Expected flow:
+
+1. Clarify scope only when needed.
+2. Identify or propose official docs, source repos, specs, or user-approved authoritative sources.
+3. Scaffold with `scripts/scaffold-expert.sh`.
+4. Fill the source manifest, consulting playbook, sync script, skill, and Codex/Claude agents.
+5. Update the README Expert Index.
+6. Validate before committing.
+
+For file-level requirements, follow [templates/EXPERT_BLUEPRINT.md](templates/EXPERT_BLUEPRINT.md).
 
 Each expert package must have:
 
@@ -81,4 +92,5 @@ Validate before committing:
 
 ```bash
 ./install.sh --expert <expert-name> --dry-run
+bash -n experts/<expert-name>/knowledge/scripts/sync-<domain>-docs.sh
 ```

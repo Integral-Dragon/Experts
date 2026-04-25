@@ -1,6 +1,6 @@
 # Expert Blueprint
 
-Use this when adding a new expert to the repo.
+Use this when adding a new expert to the repo. For the end-to-end guided flow, start with [CREATE_EXPERT.md](CREATE_EXPERT.md).
 
 ## Naming
 

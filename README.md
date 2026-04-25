@@ -84,10 +84,18 @@ Hydrated docs are generated locally and are not committed to this repo.
 
 ## Add A New Expert
 
-Use [templates/EXPERT_BLUEPRINT.md](templates/EXPERT_BLUEPRINT.md). New experts go under:
+Ask an agent:
+
+```text
+Create a new expert for Shopify from https://github.com/Integral-Dragon/Experts
+```
+
+The agent should follow [templates/CREATE_EXPERT.md](templates/CREATE_EXPERT.md): clarify scope when needed, identify official sources, scaffold the package, customize hydration, update this index, and validate the result.
+
+New experts go under:
 
 ```text
 experts/<expert-name>/
 ```
 
-The installer discovers experts automatically when they follow the repo structure.
+The installer discovers experts automatically when they follow the repo structure in [templates/EXPERT_BLUEPRINT.md](templates/EXPERT_BLUEPRINT.md).
