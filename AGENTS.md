@@ -4,7 +4,7 @@ If a user asks you to install an expert or the Experts helper from this repo, do
 
 When the install request includes a repository URL, treat that URL as the canonical source. Do not search for,
 prefer, or announce an existing local checkout such as `~/Projects/Experts` unless the user explicitly asks to
-use local files or the remote URL is unavailable.
+use local files.
 
 This repo is designed for AI coding-agent harnesses first. Codex and Claude adapters are built in, but the durable interface is the harness-neutral `.agents` tree:
 
