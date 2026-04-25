@@ -45,6 +45,44 @@ available_experts() {
     | sort
 }
 
+resolve_expert() {
+  local requested="$1"
+  local normalized
+  local matches=()
+  local expert
+
+  normalized="$(printf '%s' "${requested}" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//; s/-+/-/g; s/-expert$//')"
+
+  while IFS= read -r expert; do
+    if [[ "${expert}" == "${normalized}" ]]; then
+      printf '%s\n' "${expert}"
+      return 0
+    fi
+    if [[ "${expert}" == "${normalized}-principal-engineer" || "${expert}" == "${normalized}"-* ]]; then
+      matches+=("${expert}")
+    fi
+  done < <(available_experts)
+
+  if [[ ${#matches[@]} -eq 1 ]]; then
+    printf '%s\n' "${matches[0]}"
+    return 0
+  fi
+
+  if [[ ${#matches[@]} -gt 1 ]]; then
+    log "Ambiguous expert: ${requested}" >&2
+    log "Matches:" >&2
+    printf '%s\n' "${matches[@]}" >&2
+    exit 1
+  fi
+
+  log "Unknown expert: ${requested}" >&2
+  log "Available experts:" >&2
+  available_experts >&2
+  exit 1
+}
+
 log() {
   printf '%s\n' "$*"
 }
@@ -145,15 +183,9 @@ install_experts_helper() {
 }
 
 install_expert() {
-  local expert="$1"
+  local expert
+  expert="$(resolve_expert "$1")"
   local src="${repo_root}/experts/${expert}"
-
-  if [[ ! -f "${src}/skill/SKILL.md" ]]; then
-    log "Unknown expert: ${expert}" >&2
-    log "Available experts:" >&2
-    available_experts >&2
-    exit 1
-  fi
 
   local domain="${expert%-principal-engineer}"
   copy_tree_contents "${src}/skill" "${home_dir}/.agents/skills/${expert}"

@@ -14,14 +14,11 @@ Other harnesses such as Pi, OpenCode, Hermes, or future agents should load those
 The intended first-time user prompts are simple:
 
 ```text
-Install the codex-principal-engineer expert from https://github.com/Integral-Dragon/Experts
+Install Experts from https://github.com/Integral-Dragon/Experts
+Install the Codex expert from https://github.com/Integral-Dragon/Experts
 ```
 
-Or, to bootstrap only the shared helper first:
-
-```text
-Install the Experts helper from https://github.com/Integral-Dragon/Experts
-```
+Treat `Install Experts ...` as a request to install the shared Experts helper, not every expert.
 
 ## Install Flow
 
@@ -32,7 +29,9 @@ Install the Experts helper from https://github.com/Integral-Dragon/Experts
 ./install.sh --list
 ```
 
-3. Install the requested expert:
+3. Resolve friendly names against the dynamic expert list. For example, `Codex expert` should resolve to the single matching expert name from `./install.sh --list`.
+
+4. Install the requested expert:
 
 ```bash
 ./install.sh --expert <expert-name> --hydrate
@@ -61,13 +60,13 @@ Do not hardcode the current expert index into helper behavior. For Experts helpe
 ./install.sh --list
 ```
 
-4. If network access is unavailable, omit hydration:
+5. If network access is unavailable, omit hydration:
 
 ```bash
 ./install.sh --expert <expert-name>
 ```
 
-5. Tell the user to restart or reload the relevant agent harness if the expert or shared Experts helper does not appear immediately.
+6. Tell the user to restart or reload the relevant agent harness if the expert or shared Experts helper does not appear immediately.
 
 Skip the helper only when explicitly requested:
 
