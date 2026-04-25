@@ -19,7 +19,7 @@ For installation requests, resolve friendly names against the dynamic list, run 
 
 For new expert requests, follow the local repo's `templates/CREATE_EXPERT.md` and `templates/EXPERT_BLUEPRINT.md`. Do not assume publishing; install locally unless the user asks for a commit, PR, or private/internal package.
 
-Be direct and operational. Report what changed, what command was run, and whether the user should restart Codex, Claude, or another harness.
+Be direct and operational. Report what changed, what command was run, and whether the user should restart or reload the relevant agent harness.
 """
 
 [[skills.config]]

@@ -2,6 +2,15 @@
 
 If a user asks you to install an expert from this repo, do it directly.
 
+This repo is designed for AI coding-agent harnesses first. Codex and Claude adapters are built in, but the durable interface is the harness-neutral `.agents` tree:
+
+- `$HOME/.agents/skills/<name>/SKILL.md`
+- `$HOME/.agents/knowledge/<domain>/`
+- `$HOME/.agents/toolkits/experts/manifest.json`
+- `$HOME/.agents/toolkits/experts/adapter.md`
+
+Other harnesses such as Pi, OpenCode, Hermes, or future agents should load those portable files and adapt their own native agent format around them.
+
 The intended user prompt is this simple:
 
 ```text
@@ -44,7 +53,7 @@ Do not hardcode the current expert index into helper behavior. For `$experts` wo
 ./install.sh --expert <expert-name>
 ```
 
-5. Tell the user to restart Codex, Claude, or the relevant harness if the expert or `$experts` helper does not appear immediately.
+5. Tell the user to restart or reload the relevant agent harness if the expert or `$experts` helper does not appear immediately.
 
 Skip the helper only when explicitly requested:
 
@@ -82,10 +91,14 @@ The installer writes to the active user's home directory:
 | Claude agents | `$HOME/.claude/agents/<expert>.md` |
 | `$experts` helper skill | `$HOME/.agents/skills/experts/` |
 | `$experts` helper state | `$HOME/.agents/knowledge/experts/install-state.env` |
+| `$experts` harness manifest | `$HOME/.agents/toolkits/experts/manifest.json` |
+| `$experts` generic adapter contract | `$HOME/.agents/toolkits/experts/adapter.md` |
 | `$experts` Codex agent | `$HOME/.codex/agents/experts.toml` |
 | `$experts` Claude agent | `$HOME/.claude/agents/experts.md` |
 
 Codex custom agents are rendered from templates so paths use the installing user's `$HOME`.
+
+For harnesses without a native adapter in this repo, use `$HOME/.agents/toolkits/experts/adapter.md` as the integration contract. Do not treat Codex or Claude as the only supported interfaces.
 
 ## Context Rule
 
@@ -101,7 +114,7 @@ Expected flow:
 2. Clarify delivery only when needed: local-only, private/internal, or PR back to this repo.
 3. Identify or propose official docs, source repos, specs, or user-approved authoritative sources.
 4. Scaffold with `scripts/scaffold-expert.sh`.
-5. Fill the source manifest, consulting playbook, sync script, skill, and Codex/Claude agents.
+5. Fill the source manifest, consulting playbook, sync script, skill, and relevant harness adapters.
 6. Update the README Expert Index only for shared-repo or PR work.
 7. Validate before installing, committing, or opening a PR.
 

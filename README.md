@@ -1,15 +1,19 @@
 # Experts
 
-Reusable expert packages for Codex, Claude, and other coding-agent harnesses.
+Reusable expert packages for AI coding-agent harnesses.
+
+This project is meant to be used primarily by agents, not as a human-facing package catalog. A user should be able to point Codex, Claude, Pi, OpenCode, Hermes, or another coding-agent harness at this repo once, install an expert or the `$experts` helper, and then manage experts through natural-language agent prompts after that.
 
 Each expert installs as:
 
 - a progressive-disclosure skill,
-- a Codex custom agent,
-- a Claude agent,
+- a harness-neutral knowledge/source manifest,
+- optional harness-specific agent adapters,
 - official-source manifests and sync scripts for local documentation caches.
 
 By default, installing any expert also installs a lightweight `$experts` helper. That helper remembers this repo URL, syncs a working checkout from it, and gives future agent sessions a shortcut for listing, installing, updating, and creating experts without retyping the URL.
+
+Codex and Claude adapters are included today because they have known local agent formats. Other harnesses can integrate by loading the harness-neutral files installed under `$HOME/.agents/`.
 
 ## Quick Agent Prompt
 
@@ -65,7 +69,7 @@ Install only the reusable helper:
 ./install.sh --experts-toolkit-only
 ```
 
-Restart your agent harness after installation if the new expert does not appear.
+Restart or reload your agent harness after installation if the new expert does not appear.
 
 ## Reuse With `$experts`
 
@@ -80,6 +84,19 @@ $experts update
 
 The helper syncs from the remembered repo URL, then discovers available experts dynamically by running `./install.sh --list`. It does not hardcode the current Expert Index, so newly added experts are picked up from the repo structure.
 
+## Harness Model
+
+The portable interface is the installed `.agents` tree:
+
+| Artifact | Purpose |
+| --- | --- |
+| `$HOME/.agents/skills/<name>/SKILL.md` | Harness-neutral instructions for when and how to use the expert. |
+| `$HOME/.agents/knowledge/<domain>/` | Source manifests, playbooks, sync scripts, and optional hydrated official docs. |
+| `$HOME/.agents/toolkits/experts/manifest.json` | Machine-readable `$experts` helper manifest for any harness. |
+| `$HOME/.agents/toolkits/experts/adapter.md` | Generic adapter contract for harnesses without a native package in this repo. |
+
+Harness-specific adapters are optional wrappers around those portable files. This repo currently renders Codex and Claude adapters; other coding-agent harnesses can read the manifest and adapter contract to provide the same `$experts` behavior.
+
 ## What Gets Installed
 
 The installer writes to the current user's standard agent locations:
@@ -92,10 +109,12 @@ The installer writes to the current user's standard agent locations:
 | Claude agents | `$HOME/.claude/agents/<expert>.md` |
 | `$experts` helper skill | `$HOME/.agents/skills/experts/` |
 | `$experts` helper state | `$HOME/.agents/knowledge/experts/install-state.env` |
+| `$experts` harness manifest | `$HOME/.agents/toolkits/experts/manifest.json` |
+| `$experts` generic adapter contract | `$HOME/.agents/toolkits/experts/adapter.md` |
 | `$experts` Codex agent | `$HOME/.codex/agents/experts.toml` |
 | `$experts` Claude agent | `$HOME/.claude/agents/experts.md` |
 
-Codex agent files are rendered from templates, so installed paths use the current user's `$HOME`.
+Codex agent files are rendered from templates, so installed paths use the current user's `$HOME`. Claude agent files are copied as Markdown. Other harnesses should use the harness manifest and adapter contract.
 
 ## How The Experts Stay Lightweight
 

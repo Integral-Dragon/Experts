@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "name": "experts",
+  "display_name": "Experts",
+  "description": "Harness-neutral helper for listing, installing, updating, creating, scaffolding, and validating reusable Experts packages.",
+  "invocation_hints": [
+    "$experts",
+    "experts",
+    "install an expert",
+    "create a new expert",
+    "list available experts"
+  ],
+  "source_of_truth": {
+    "state_file": "$HOME/.agents/knowledge/experts/install-state.env",
+    "repo_url_env": "EXPERTS_REPO_URL",
+    "repo_cache_env": "EXPERTS_REPO_CACHE",
+    "fallback_repo_root_env": "EXPERTS_REPO_ROOT"
+  },
+  "installed_artifacts": {
+    "skill": "$HOME/.agents/skills/experts/SKILL.md",
+    "knowledge": "$HOME/.agents/knowledge/experts/",
+    "harness_manifest": "$HOME/.agents/toolkits/experts/manifest.json",
+    "adapter_contract": "$HOME/.agents/toolkits/experts/adapter.md"
+  },
+  "workflow": {
+    "sync": "Treat EXPERTS_REPO_URL as canonical. Clone or fetch into EXPERTS_REPO_CACHE before listing, installing, updating, or creating experts.",
+    "discover": "Run ./install.sh --list from the synced checkout. Do not hardcode expert names.",
+    "install": "Resolve friendly names against the dynamic list, then run ./install.sh --expert <expert-name> --hydrate. Retry without --hydrate if network hydration is unavailable.",
+    "create": "Follow templates/CREATE_EXPERT.md and templates/EXPERT_BLUEPRINT.md from the synced checkout."
+  },
+  "adapter_outputs": {
+    "codex": "$HOME/.codex/agents/experts.toml",
+    "claude": "$HOME/.claude/agents/experts.md",
+    "generic": "$HOME/.agents/toolkits/experts/adapter.md"
+  }
+}

@@ -5,7 +5,7 @@ description: Use when a user wants to list, install, update, create, scaffold, v
 
 # Experts Helper
 
-Use this skill when the user invokes `$experts` or asks to manage reusable expert packages from the Experts project.
+Use this skill when the user invokes `$experts` or asks to manage reusable expert packages from the Experts project. This is a harness-neutral helper; Codex, Claude, Pi, OpenCode, Hermes, and other coding-agent harnesses should all be able to adapt it.
 
 ## Purpose
 
@@ -25,9 +25,11 @@ Start with:
 
 1. `$HOME/.agents/knowledge/experts/install-state.env`
 2. `$HOME/.agents/knowledge/experts/official-sources.md`
-3. `EXPERTS_REPO_URL` as the source of truth.
-4. `EXPERTS_REPO_CACHE` as the working checkout for current repo contents.
-5. `EXPERTS_REPO_ROOT` only as a last-resort local development checkout when syncing the URL is unavailable.
+3. `$HOME/.agents/toolkits/experts/manifest.json`
+4. `$HOME/.agents/toolkits/experts/adapter.md`
+5. `EXPERTS_REPO_URL` as the source of truth.
+6. `EXPERTS_REPO_CACHE` as the working checkout for current repo contents.
+7. `EXPERTS_REPO_ROOT` only as a last-resort local development checkout when syncing the URL is unavailable.
 
 ## Core Workflow
 
@@ -47,7 +49,7 @@ Start with:
    - Run `./install.sh --expert <expert-name> --hydrate` by default.
    - If hydration fails because network access is unavailable, rerun without `--hydrate`.
    - Use `--all --hydrate` only when the user explicitly asks for every expert.
-   - Tell the user to restart Codex, Claude, or the relevant harness if new skills or agents do not appear immediately.
+   - Tell the user to restart or reload the relevant agent harness if new skills or agents do not appear immediately.
 
 4. Create experts through this repo.
    - Follow `templates/CREATE_EXPERT.md`.
@@ -85,6 +87,8 @@ For project mechanics, use the synced checkout from `EXPERTS_REPO_URL` as the so
 - `templates/CREATE_EXPERT.md`
 - `templates/EXPERT_BLUEPRINT.md`
 - `scripts/scaffold-expert.sh`
+- `$HOME/.agents/toolkits/experts/manifest.json`
+- `$HOME/.agents/toolkits/experts/adapter.md`
 
 If synced repo files disagree with this helper skill, follow the synced repo files and mention the mismatch.
 

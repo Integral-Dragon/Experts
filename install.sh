@@ -33,6 +33,7 @@ Options:
   --home DIR       Install into DIR instead of $HOME. Useful for tests.
   --no-codex       Skip Codex custom-agent installation.
   --no-claude      Skip Claude agent installation.
+                   Harness-neutral skill, knowledge, state, and manifest files are still installed.
   --dry-run        Print actions without writing files.
   -h, --help       Show this help.
 EOF
@@ -121,6 +122,7 @@ install_experts_helper() {
 
   copy_tree_contents "${src}/skill" "${home_dir}/.agents/skills/experts"
   copy_tree_contents "${src}/knowledge" "${home_dir}/.agents/knowledge/experts"
+  copy_tree_contents "${src}/harness" "${home_dir}/.agents/toolkits/experts"
   write_experts_toolkit_state
 
   if "${install_codex}"; then
@@ -277,4 +279,4 @@ if "${install_experts_toolkit}"; then
   install_experts_helper
 fi
 
-log 'Installation complete. Restart Codex or Claude if a running session does not show new experts or the $experts helper.'
+log 'Installation complete. Restart or reload your agent harness if a running session does not show new experts or the $experts helper.'
