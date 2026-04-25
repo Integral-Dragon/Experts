@@ -1,91 +1,84 @@
 # Agent Instructions
 
-This repo contains portable expert packages. If a user asks you to install or use an expert from this repo, follow these instructions.
+If a user asks you to install an expert from this repo, do it directly.
 
-## Install Existing Experts
+The intended user prompt is this simple:
 
-Use the installer from the repo root.
-
-Install all experts:
-
-```bash
-./install.sh --all --hydrate
+```text
+Install the codex-principal-engineer expert from https://github.com/Integral-Dragon/Experts
 ```
 
-Install one expert:
+## Install Flow
 
-```bash
-./install.sh --expert codex-principal-engineer --hydrate
-```
-
-Use `--hydrate` when network access is available. If network access is unavailable, omit `--hydrate`; the expert still installs with source manifests and can hydrate later using its sync script.
-
-Before installing, you may inspect available experts:
+1. Clone or open this repo.
+2. From the repo root, list experts if needed:
 
 ```bash
 ./install.sh --list
 ```
 
-Use a dry run to show what would be written:
+3. Install the requested expert:
 
 ```bash
-./install.sh --expert codex-principal-engineer --dry-run
+./install.sh --expert <expert-name> --hydrate
 ```
 
-## Install Locations
+4. If network access is unavailable, omit hydration:
 
-The installer writes to the active user's home directory:
-
-- `$HOME/.agents/skills/<expert>/`
-- `$HOME/.agents/knowledge/<domain>/`
-- `$HOME/.codex/agents/<expert>.toml`
-- `$HOME/.claude/agents/<expert>.md`
-
-The installed Codex agent files are rendered from templates so paths use the user's own `$HOME`, not the path from the authoring machine.
-
-## Expert Package Contract
-
-Each expert package must use this structure:
-
-```text
-experts/<expert-name>/
-  skill/
-    SKILL.md
-    agents/openai.yaml
-  knowledge/
-    official-sources.md
-    consulting-playbook.md
-    scripts/sync-*.sh
-  agents/
-    codex/<expert-name>.toml.template
-    claude/<expert-name>.md
+```bash
+./install.sh --expert <expert-name>
 ```
 
-The installer discovers experts by scanning `experts/*/skill/SKILL.md`.
+5. Tell the user to restart Codex, Claude, or the relevant harness if the expert does not appear immediately.
 
-## Context Discipline
+Install all experts only when the user asks:
 
-Do not bulk-load hydrated upstream docs. Use the skill and `knowledge/official-sources.md` as an index. Load only the specific official docs or source files needed for the user's question.
+```bash
+./install.sh --all --hydrate
+```
 
-## Adding A New Expert
-
-Use `templates/EXPERT_BLUEPRINT.md`. Preserve the same source discipline:
-
-- official/public sources first,
-- local hydrated cache when present,
-- sync script for hydration,
-- explicit source manifest,
-- progressive disclosure through topic maps,
-- clear separation of documented facts, source-code inference, local facts, and uncertain information.
-
-After adding an expert, validate with:
+Use dry-run for inspection:
 
 ```bash
 ./install.sh --expert <expert-name> --dry-run
 ```
 
-If Codex's skill validator is available, also validate the skill:
+## Installed Locations
+
+The installer writes to the active user's home directory:
+
+| Artifact | Destination |
+| --- | --- |
+| Skills | `$HOME/.agents/skills/<expert>/` |
+| Knowledge manifests and sync scripts | `$HOME/.agents/knowledge/<domain>/` |
+| Codex custom agents | `$HOME/.codex/agents/<expert>.toml` |
+| Claude agents | `$HOME/.claude/agents/<expert>.md` |
+
+Codex custom agents are rendered from templates so paths use the installing user's `$HOME`.
+
+## Context Rule
+
+Do not bulk-load hydrated upstream docs. Start with the expert's skill and `knowledge/official-sources.md`, then read only the specific official docs or source files needed.
+
+## Add A New Expert
+
+Follow [templates/EXPERT_BLUEPRINT.md](templates/EXPERT_BLUEPRINT.md).
+
+Each expert package must have:
+
+```text
+experts/<expert-name>/
+  skill/SKILL.md
+  skill/agents/openai.yaml
+  knowledge/official-sources.md
+  knowledge/consulting-playbook.md
+  knowledge/scripts/sync-*.sh
+  agents/codex/<expert-name>.toml.template
+  agents/claude/<expert-name>.md
+```
+
+Validate before committing:
 
 ```bash
-uv run --with pyyaml python ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py experts/<expert-name>/skill
+./install.sh --expert <expert-name> --dry-run
 ```

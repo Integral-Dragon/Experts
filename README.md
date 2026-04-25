@@ -1,28 +1,35 @@
 # Experts
 
-Portable expert packages for agent harnesses.
+Reusable expert packages for Codex, Claude, and other coding-agent harnesses.
 
-This repo packages domain experts as reusable agent artifacts. Each expert includes:
+Each expert installs as:
 
-- a Codex/OpenAI-style skill with progressive-disclosure instructions,
-- official-source manifests and sync scripts,
-- Codex custom-agent templates,
-- Claude agent wrappers,
-- installation instructions for agent harnesses.
+- a progressive-disclosure skill,
+- a Codex custom agent,
+- a Claude agent,
+- official-source manifests and sync scripts for local documentation caches.
 
-The initial experts are:
+## Quick Agent Prompt
 
-- `codex-principal-engineer`
-- `firecracker-principal-engineer`
-- `linux-systems-principal-engineer`
+Point an agent at this repo and say:
 
-## Quick Install
-
-Clone the repo, then install every expert:
-
-```bash
-./install.sh --all --hydrate
+```text
+Install the codex-principal-engineer expert from https://github.com/Integral-Dragon/Experts
 ```
+
+That should be enough. The agent should read `AGENTS.md`, clone or open the repo, and run the installer.
+
+## Expert Index
+
+Click an expert to inspect its package. Use the expert name directly in the install prompt.
+
+| Expert | What it helps with |
+| --- | --- |
+| [`codex-principal-engineer`](experts/codex-principal-engineer/) | OpenAI Codex CLI, sandboxing, approvals, config, skills, plugins, MCP, subagents, app, IDE, cloud, and SDK behavior from official OpenAI sources. |
+| [`firecracker-principal-engineer`](experts/firecracker-principal-engineer/) | Firecracker microVM architecture, API, jailer, KVM integration, networking, storage, snapshots, MMDS, seccomp, performance, and host integration. |
+| [`linux-systems-principal-engineer`](experts/linux-systems-principal-engineer/) | Linux, KVM, containers, namespaces, cgroups, capabilities, networking, nftables, iproute2, systemd, Debian, storage, observability, and host operations. |
+
+## Install
 
 Install one expert:
 
@@ -30,68 +37,57 @@ Install one expert:
 ./install.sh --expert codex-principal-engineer --hydrate
 ```
 
-Install without fetching upstream docs:
+Install all experts:
 
 ```bash
-./install.sh --all
+./install.sh --all --hydrate
 ```
 
-The installer writes to the current user's agent locations:
+Skip `--hydrate` when offline:
 
-- skills: `$HOME/.agents/skills/<expert>/`
-- knowledge manifests and sync scripts: `$HOME/.agents/knowledge/<domain>/`
-- Codex custom agents: `$HOME/.codex/agents/<expert>.toml`
-- Claude agents: `$HOME/.claude/agents/<expert>.md`
+```bash
+./install.sh --expert codex-principal-engineer
+```
 
-Restart Codex or Claude after installation if a running session does not show the new expert.
+List available experts:
 
-## Agent Harness Usage
+```bash
+./install.sh --list
+```
 
-Give a coding agent this repo and say:
+Restart your agent harness after installation if the new expert does not appear.
+
+## What Gets Installed
+
+The installer writes to the current user's standard agent locations:
+
+| Artifact | Destination |
+| --- | --- |
+| Skills | `$HOME/.agents/skills/<expert>/` |
+| Knowledge manifests and sync scripts | `$HOME/.agents/knowledge/<domain>/` |
+| Codex custom agents | `$HOME/.codex/agents/<expert>.toml` |
+| Claude agents | `$HOME/.claude/agents/<expert>.md` |
+
+Codex agent files are rendered from templates, so installed paths use the current user's `$HOME`.
+
+## How The Experts Stay Lightweight
+
+The repo does not vendor large upstream documentation dumps. Each expert includes a small skill plus an `official-sources.md` index. When used, the expert loads only the specific official docs or source files needed for the task.
+
+Use `--hydrate` to fetch official upstream docs into the local cache:
 
 ```text
-Install the expert I need from this repository. Read AGENTS.md first, then run the installer for the requested expert.
+$HOME/.agents/knowledge/<domain>/upstream/
 ```
 
-For example:
+Hydrated docs are generated locally and are not committed to this repo.
 
-```text
-Install codex-principal-engineer from https://github.com/Integral-Dragon/Experts.
-```
+## Add A New Expert
 
-The agent should:
-
-1. Clone or open this repo.
-2. Read `AGENTS.md`.
-3. Run `./install.sh --expert <expert-name> --hydrate` when network access is allowed.
-4. Run `./install.sh --expert <expert-name>` when offline, then hydrate later using the expert's sync script.
-
-## Progressive Disclosure
-
-The installed skills are intentionally small. They do not load the hydrated documentation corpus into the initial prompt. Instead, each skill:
-
-1. identifies the topic,
-2. reads the relevant `official-sources.md` manifest,
-3. selects the specific docs/source paths needed,
-4. loads only those files from `$HOME/.agents/knowledge/<domain>/upstream/...`,
-5. separates documented behavior, source-derived inference, local environment facts, and uncertain information.
-
-Hydrated upstream docs are generated locally and ignored by this repo.
-
-## Adding Experts
-
-Use `templates/EXPERT_BLUEPRINT.md` as the pattern. A new expert should live at:
+Use [templates/EXPERT_BLUEPRINT.md](templates/EXPERT_BLUEPRINT.md). New experts go under:
 
 ```text
 experts/<expert-name>/
-  skill/
-  knowledge/
-  agents/codex/
-  agents/claude/
 ```
 
-The installer discovers experts by directory name, so new experts do not need installer code changes if they follow the structure.
-
-## Upstream Docs
-
-This repo stores official-source manifests and sync scripts, not vendored upstream documentation. Hydrated docs are fetched into the user's home directory by the sync scripts. Upstream documentation remains governed by upstream licenses and terms.
+The installer discovers experts automatically when they follow the repo structure.
