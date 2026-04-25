@@ -31,16 +31,8 @@ Experts installs agent-usable specialist packs:
 
 It also installs one shared Experts helper. The helper remembers this repo, syncs the latest version before list/install/create operations, and discovers available experts dynamically. It is not copied per expert.
 
-## Current Experts
-
-| Ask for | Installs |
-| --- | --- |
-| `Codex expert` | `codex-principal-engineer` |
-| `Firecracker expert` | `firecracker-principal-engineer` |
-| `Linux systems expert` | `linux-systems-principal-engineer` |
-
 ## For Agents
 
-Read [AGENTS.md](AGENTS.md), then do the requested install directly. Friendly names like `Codex expert` should be resolved against the dynamic expert list.
+Read [AGENTS.md](AGENTS.md), then do the requested install directly. If the user uses a friendly name like `Codex expert`, inspect the available experts and choose the obvious match or ask a short clarification.
 
 For harnesses without a native adapter, use the generic contract at [toolkits/experts/harness/adapter.md](toolkits/experts/harness/adapter.md).

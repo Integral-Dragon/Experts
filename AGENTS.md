@@ -29,7 +29,7 @@ Treat `Install Experts ...` as a request to install the shared Experts helper, n
 ./install.sh --list
 ```
 
-3. Resolve friendly names against the dynamic expert list. For example, `Codex expert` should resolve to the single matching expert name from `./install.sh --list`.
+3. If the user used a friendly name like `Codex expert`, inspect the dynamic expert list and choose the obvious match. If multiple experts could match, ask which one they mean.
 
 4. Install the requested expert:
 
