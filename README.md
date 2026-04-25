@@ -48,6 +48,13 @@ Experts installs agent-usable specialist packs:
 
 It also installs one shared Experts helper. The helper remembers this repo, syncs the latest version before list/install/create operations, and discovers available experts from the repo. It is not copied per expert.
 
+## Expert Index
+
+- `codex-principal-engineer` - OpenAI Codex expert for CLI, sandboxing, approvals, config, AGENTS.md, rules, skills, plugins, MCP, subagents, app, IDE, cloud, SDK, and non-interactive workflows.
+- `firecracker-principal-engineer` - Firecracker expert for microVM architecture, APIs, security model, jailer behavior, networking, storage, snapshots, and source-grounded operations.
+- `linux-systems-principal-engineer` - Linux systems expert for kernel, systemd, networking, nftables, QEMU, OCI runtime behavior, and production systems debugging.
+- `pi-principal-engineer` - Pi coding agent expert for CLI/TUI workflows, providers, settings, sessions, context files, skills, extensions, packages, SDK, RPC, JSON mode, terminal setup, and source-grounded behavior.
+
 ## For Agents
 
 Read [AGENTS.md](AGENTS.md), then do the requested install directly.

@@ -1,0 +1,8 @@
+interface:
+  display_name: "Pi Principal Engineer"
+  short_description: "Official-source Pi coding agent expert for CLI/TUI workflows, providers, settings, sessions, skills, extensions, packages, SDK, RPC, JSON mode, and source-grounded behavior."
+  default_prompt: "Use $pi-principal-engineer for Pi questions from official or user-approved authoritative sources."
+  brand_color: "#111827"
+
+policy:
+  allow_implicit_invocation: true
