@@ -1,0 +1,8 @@
+interface:
+  display_name: "Codex Principal Engineer"
+  short_description: "Official-source OpenAI Codex expert"
+  default_prompt: "Use $codex-principal-engineer to answer Codex CLI, sandboxing, approvals, config, skills, plugins, MCP, subagents, or official-source Codex behavior questions."
+  brand_color: "#10A37F"
+
+policy:
+  allow_implicit_invocation: true

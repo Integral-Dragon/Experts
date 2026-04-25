@@ -1,0 +1,8 @@
+interface:
+  display_name: "Firecracker Principal Engineer"
+  short_description: "Official-source Firecracker expert"
+  default_prompt: "Use $firecracker-principal-engineer to answer Firecracker architecture, API, jailer, networking, snapshot, security, or host integration questions from official Firecracker sources."
+  brand_color: "#F15A24"
+
+policy:
+  allow_implicit_invocation: true

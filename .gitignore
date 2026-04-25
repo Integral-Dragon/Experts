@@ -1,0 +1,10 @@
+# Hydrated upstream docs are generated locally by sync scripts.
+experts/*/knowledge/upstream/
+
+# Local test installs.
+.tmp/
+
+# OS/editor noise.
+.DS_Store
+*.swp
+*~

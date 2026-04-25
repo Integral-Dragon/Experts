@@ -1,0 +1,8 @@
+interface:
+  display_name: "Linux Systems Principal Engineer"
+  short_description: "Official-source Linux systems expert"
+  default_prompt: "Use $linux-systems-principal-engineer to answer Linux, KVM, networking, container, Debian, systemd, or sysadmin questions from official sources."
+  brand_color: "#2563EB"
+
+policy:
+  allow_implicit_invocation: true
