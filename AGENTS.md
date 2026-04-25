@@ -2,6 +2,10 @@
 
 If a user asks you to install an expert or the Experts helper from this repo, do it directly.
 
+When the install request includes a repository URL, treat that URL as the canonical source. Do not search for,
+prefer, or announce an existing local checkout such as `~/Projects/Experts` unless the user explicitly asks to
+use local files or the remote URL is unavailable.
+
 This repo is designed for AI coding-agent harnesses first. Codex and Claude adapters are built in, but the durable interface is the harness-neutral `.agents` tree:
 
 - `$HOME/.agents/skills/<name>/SKILL.md`
@@ -22,7 +26,7 @@ Treat `Install Experts ...` as a request to install the shared Experts helper, n
 
 ## Install Flow
 
-1. Clone or open this repo.
+1. Clone or fetch the repository URL from the user's prompt, then work from that remote-synced checkout.
 2. From the repo root, list experts if needed:
 
 ```bash
