@@ -24,11 +24,11 @@ Options:
   --expert NAME    Install one expert. May be repeated.
   --hydrate        Fetch official upstream docs after installing manifests/scripts.
   --with-experts-toolkit
-                   Install the reusable $experts helper skill and agents. This is the default.
+                   Install the reusable Experts helper skill and agents. This is the default.
   --no-experts-toolkit
-                   Skip the reusable $experts helper skill and agents.
+                   Skip the reusable Experts helper skill and agents.
   --experts-toolkit-only
-                   Install only the reusable $experts helper skill and agents.
+                   Install only the reusable Experts helper skill and agents.
   --list           List available experts.
   --home DIR       Install into DIR instead of $HOME. Useful for tests.
   --no-codex       Skip Codex custom-agent installation.
@@ -279,4 +279,4 @@ if "${install_experts_toolkit}"; then
   install_experts_helper
 fi
 
-log 'Installation complete. Restart or reload your agent harness if a running session does not show new experts or the $experts helper.'
+log 'Installation complete. Restart or reload your agent harness if a running session does not show new experts or the Experts helper.'

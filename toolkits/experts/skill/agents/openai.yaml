@@ -1,7 +1,7 @@
 interface:
   display_name: "Experts"
   short_description: "Manage reusable expert packages from the Experts repo without retyping the repo URL."
-  default_prompt: "Use $experts to list, install, update, create, scaffold, and validate Experts packages."
+  default_prompt: "Use the Experts helper to list, install, update, create, scaffold, and validate Experts packages."
   brand_color: "#2563EB"
 
 policy:

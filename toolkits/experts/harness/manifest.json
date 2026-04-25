@@ -4,12 +4,17 @@
   "display_name": "Experts",
   "description": "Harness-neutral helper for listing, installing, updating, creating, scaffolding, and validating reusable Experts packages.",
   "invocation_hints": [
-    "$experts",
+    "Experts:",
+    "use the Experts helper",
+    "ask Experts to",
     "experts",
+    "$experts",
+    "@experts",
     "install an expert",
     "create a new expert",
     "list available experts"
   ],
+  "portable_invocation": "Use natural language that names the Experts helper, such as 'Experts: list available experts' or 'Use the Experts helper to install <name>'. Dollar-prefixed aliases are harness-specific conveniences only.",
   "source_of_truth": {
     "state_file": "$HOME/.agents/knowledge/experts/install-state.env",
     "repo_url_env": "EXPERTS_REPO_URL",

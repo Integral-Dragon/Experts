@@ -8,14 +8,16 @@ The project is intentionally harness-neutral. Codex and Claude adapters are incl
 
 Route these user requests to the Experts helper:
 
-- `$experts ...`
+- `Experts: ...`
+- `use the Experts helper to ...`
+- `ask Experts to ...`
 - `experts ...`
 - `install <name> expert`
 - `list available experts`
 - `create a new expert for <domain>`
 - `update experts`
 
-Treat `$experts` as a natural-language routing token. It does not need to be a shell command.
+Harness-specific aliases such as `$experts`, `@experts`, or slash commands are optional. Do not assume they exist. The portable interface is natural language that names the Experts helper.
 
 ## Required Context
 

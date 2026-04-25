@@ -32,16 +32,18 @@ Install the codex-principal-engineer expert from https://github.com/Integral-Dra
 ./install.sh --expert <expert-name> --hydrate
 ```
 
-This also installs the reusable `$experts` helper by default. The helper remembers this repo URL, syncs a working checkout from it, and lets future sessions handle prompts like:
+This also installs the reusable Experts helper by default. The helper remembers this repo URL, syncs a working checkout from it, and lets future sessions handle prompts like:
 
 ```text
-$experts list
-$experts install <expert-name-or-friendly-name>
-$experts create a new expert for <domain>
-$experts update
+Experts: list available experts
+Experts: install <expert-name-or-friendly-name>
+Experts: create a new expert for <domain>
+Experts: update from the repo
 ```
 
-Do not hardcode the current expert index into helper behavior. For `$experts` workflows, sync from the remembered repo URL first, then discover available experts with:
+Harness-specific aliases such as `$experts` or `@experts` are optional adapter conveniences, not the portable interface. In Claude or any harness without dollar-prefixed routing, use ordinary natural language that names the Experts helper.
+
+Do not hardcode the current expert index into helper behavior. For Experts helper workflows, sync from the remembered repo URL first, then discover available experts with:
 
 ```bash
 ./install.sh --list
@@ -53,7 +55,7 @@ Do not hardcode the current expert index into helper behavior. For `$experts` wo
 ./install.sh --expert <expert-name>
 ```
 
-5. Tell the user to restart or reload the relevant agent harness if the expert or `$experts` helper does not appear immediately.
+5. Tell the user to restart or reload the relevant agent harness if the expert or Experts helper does not appear immediately.
 
 Skip the helper only when explicitly requested:
 
@@ -89,12 +91,12 @@ The installer writes to the active user's home directory:
 | Knowledge manifests and sync scripts | `$HOME/.agents/knowledge/<domain>/` |
 | Codex custom agents | `$HOME/.codex/agents/<expert>.toml` |
 | Claude agents | `$HOME/.claude/agents/<expert>.md` |
-| `$experts` helper skill | `$HOME/.agents/skills/experts/` |
-| `$experts` helper state | `$HOME/.agents/knowledge/experts/install-state.env` |
-| `$experts` harness manifest | `$HOME/.agents/toolkits/experts/manifest.json` |
-| `$experts` generic adapter contract | `$HOME/.agents/toolkits/experts/adapter.md` |
-| `$experts` Codex agent | `$HOME/.codex/agents/experts.toml` |
-| `$experts` Claude agent | `$HOME/.claude/agents/experts.md` |
+| Experts helper skill | `$HOME/.agents/skills/experts/` |
+| Experts helper state | `$HOME/.agents/knowledge/experts/install-state.env` |
+| Experts harness manifest | `$HOME/.agents/toolkits/experts/manifest.json` |
+| Experts generic adapter contract | `$HOME/.agents/toolkits/experts/adapter.md` |
+| Experts Codex agent | `$HOME/.codex/agents/experts.toml` |
+| Experts Claude agent | `$HOME/.claude/agents/experts.md` |
 
 Codex custom agents are rendered from templates so paths use the installing user's `$HOME`.
 

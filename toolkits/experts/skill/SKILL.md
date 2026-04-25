@@ -5,17 +5,19 @@ description: Use when a user wants to list, install, update, create, scaffold, v
 
 # Experts Helper
 
-Use this skill when the user invokes `$experts` or asks to manage reusable expert packages from the Experts project. This is a harness-neutral helper; Codex, Claude, Pi, OpenCode, Hermes, and other coding-agent harnesses should all be able to adapt it.
+Use this skill when the user names the Experts helper or asks to manage reusable expert packages from the Experts project. This is a harness-neutral helper; Codex, Claude, Pi, OpenCode, Hermes, and other coding-agent harnesses should all be able to adapt it.
 
 ## Purpose
 
 Provide a persistent, repo-aware interface for the Experts project after the user has installed it once. The user should be able to say things like:
 
-- `$experts list`
-- `$experts install <name>`
-- `$experts install <expert-name>`
-- `$experts create a new expert for Shopify`
-- `$experts update`
+- `Experts: list available experts`
+- `Experts: install <name>`
+- `Use the Experts helper to install <expert-name>`
+- `Experts: create a new expert for Shopify`
+- `Ask Experts to update from the repo`
+
+Harness-specific aliases such as `$experts`, `@experts`, or slash commands are optional adapter conveniences. Do not assume they work in every harness.
 
 Do not require the user to remember or paste the GitHub URL again. The installed state records the URL, and the helper should use that URL to sync a fresh local cache before listing or installing experts.
 
@@ -64,18 +66,18 @@ Start with:
 
 ## Command Semantics
 
-Treat `$experts` as the user's shorthand for this helper skill, not as a shell command that must literally exist.
+Treat `Experts:` and similar natural-language phrases as the portable interface. Treat `$experts`, `@experts`, slash commands, or other routing tokens as harness-specific aliases, not as shell commands and not as universal syntax.
 
 Suggested interpretations:
 
 | User wording | Action |
 | --- | --- |
-| `$experts list` | Sync from `EXPERTS_REPO_URL`, then run `./install.sh --list`. |
-| `$experts install <name>` | Resolve `<name>` from the dynamic list and install that expert. |
-| `$experts install all` | Confirm the user means all experts, then run `./install.sh --all --hydrate`. |
-| `$experts create a new expert for <domain>` | Follow the repo's create-expert template. |
-| `$experts update` | Update the remembered checkout, then report the current dynamic expert list if useful. |
-| `$experts where` | Show the remembered repo root, cache path, and source URL. |
+| `Experts: list available experts` | Sync from `EXPERTS_REPO_URL`, then run `./install.sh --list`. |
+| `Experts: install <name>` | Resolve `<name>` from the dynamic list and install that expert. |
+| `Experts: install all` | Confirm the user means all experts, then run `./install.sh --all --hydrate`. |
+| `Experts: create a new expert for <domain>` | Follow the repo's create-expert template. |
+| `Experts: update from the repo` | Update the remembered checkout, then report the current dynamic expert list if useful. |
+| `Experts: where is the repo?` | Show the remembered repo root, cache path, and source URL. |
 
 ## Source Discipline
 
