@@ -31,11 +31,11 @@ $experts install the Firecracker expert
 Claude-style agent prompt:
 
 ```text
-Use the Experts agent to list available experts.
-Use the Experts agent to install the Linux systems expert.
+/Experts list available experts.
+/Experts install the Linux systems expert.
 ```
 
-Slash-command or plugin-style harnesses may expose their own equivalent, such as `/experts ...`. Use the native form your agent installs.
+Slash-command or plugin-style harnesses may expose their own equivalent, such as `/experts ... /experts:list /experts:install Firecracker expert` etc. depending on your chosen agent/harness.
 
 ## What It Does
 
