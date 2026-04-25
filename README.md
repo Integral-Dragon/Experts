@@ -74,7 +74,7 @@ Codex agent files are rendered from templates, so installed paths use the curren
 
 The repo does not vendor large upstream documentation dumps. Each expert includes a small skill plus an `official-sources.md` index. When used, the expert loads only the specific official docs or source files needed for the task.
 
-Use `--hydrate` to fetch official upstream docs into the local cache:
+With `--hydrate`, the installer runs the expert's `sync-*.sh` script to fetch the latest relevant official docs and source references, then builds the local reference library at:
 
 ```text
 $HOME/.agents/knowledge/<domain>/upstream/
