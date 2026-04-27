@@ -1,0 +1,8 @@
+interface:
+  display_name: "Hermes Agent Principal Engineer"
+  short_description: "Official-source Hermes Agent expert for architecture, agent runtime, integrations, UI/UX/DX/TUI, product behavior, memory, skills, gateway, security, and operations."
+  default_prompt: "Use $hermes-agent-principal-engineer for Hermes Agent engineering, product, UI/UX/DX/TUI, and operations questions from official or user-approved authoritative sources."
+  brand_color: "#FFD700"
+
+policy:
+  allow_implicit_invocation: true
