@@ -9,6 +9,7 @@ Expert packs for AI coding agents.
 | **claude-code-principal-engineer** | Claude Code expert for CLI, IDE, Desktop, Web/cloud, permissions, settings, CLAUDE.md, skills, subagents, hooks, MCP, plugins, Agent SDK, CI/CD, and sandboxing. |
 | **codex-principal-engineer** | OpenAI Codex expert for CLI, sandboxing, approvals, config, AGENTS.md, rules, skills, plugins, MCP, subagents, app, IDE, cloud, SDK, and non-interactive workflows. |
 | **firecracker-principal-engineer** | Firecracker expert for microVM architecture, APIs, security model, jailer behavior, networking, storage, snapshots, and source-grounded operations. |
+| **hermes-agent-principal-engineer** | Hermes Agent expert for architecture, runtime, integrations, UI/UX/DX/TUI, product behavior, memory, skills, gateway, security, and operations. |
 | **linux-systems-principal-engineer** | Linux systems expert for kernel, systemd, networking, nftables, QEMU, OCI runtime behavior, and production systems debugging. |
 | **oxv2-principal-engineer** | oxv2 expert for event-sourced multi-agent orchestration, seguro VM runners, complex/cx event ingestion, workflows, runtimes, storage, APIs, git integration, and source operations. |
 | **pi-principal-engineer** | Pi coding agent expert for CLI/TUI workflows, providers, settings, sessions, context files, skills, extensions, packages, SDK, RPC, JSON mode, terminal setup, and source operations. |
