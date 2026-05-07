@@ -1,0 +1,8 @@
+{
+  "name": "pi-principal-engineer",
+  "description": "Principal-engineer expertise for the Pi coding agent: architecture, ops, extensions, skills, packages, SDK/RPC.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Integral Dragon"
+  }
+}

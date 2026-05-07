@@ -1,0 +1,46 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "experts",
+  "description": "Domain expert packs for AI coding agents. Each plugin ships a focused skill plus a matching subagent grounded in official sources.",
+  "owner": {
+    "name": "Integral Dragon"
+  },
+  "plugins": [
+    {
+      "name": "claude-code-principal-engineer",
+      "description": "Claude Code CLI, IDE, Desktop, Web/cloud, settings, CLAUDE.md, permissions, sandboxing, hooks, skills, subagents, plugins, MCP, Agent SDK, CI/CD, enterprise deployment, and security questions and reviews.",
+      "source": "./plugins/claude-code-principal-engineer",
+      "category": "agent-tooling"
+    },
+    {
+      "name": "codex-principal-engineer",
+      "description": "OpenAI Codex CLI, app, IDE, cloud, SDK, sandboxing, approvals, config, AGENTS.md, rules, skills, plugins, MCP, subagents, custom agents, non-interactive exec, and official-source Codex behavior.",
+      "source": "./plugins/codex-principal-engineer",
+      "category": "agent-tooling"
+    },
+    {
+      "name": "firecracker-principal-engineer",
+      "description": "Firecracker microVM architecture, API, jailer, KVM/VMM internals, host integration, networking, storage, snapshots, MMDS, seccomp, performance, and integration questions.",
+      "source": "./plugins/firecracker-principal-engineer",
+      "category": "infrastructure"
+    },
+    {
+      "name": "hermes-agent-principal-engineer",
+      "description": "Hermes Agent: architecture, runtime, integrations, UI/UX/DX/TUI, product behavior, memory, skills, gateway, security, and operations.",
+      "source": "./plugins/hermes-agent-principal-engineer",
+      "category": "agent-tooling"
+    },
+    {
+      "name": "linux-systems-principal-engineer",
+      "description": "Linux systems, KVM, virtualization, containers, namespaces, cgroups, capabilities, networking, routing, nftables, iproute2, systemd, Debian administration, host operations, and sysadmin architecture.",
+      "source": "./plugins/linux-systems-principal-engineer",
+      "category": "infrastructure"
+    },
+    {
+      "name": "pi-principal-engineer",
+      "description": "Pi coding agent questions, reviews, debugging, architecture, operations, customization, extensions, skills, packages, SDK/RPC integrations, and terminal setup.",
+      "source": "./plugins/pi-principal-engineer",
+      "category": "agent-tooling"
+    }
+  ]
+}

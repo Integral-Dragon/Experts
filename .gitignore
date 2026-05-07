@@ -8,3 +8,5 @@ experts/*/knowledge/upstream/
 .DS_Store
 *.swp
 *~
+
+plugins-private/

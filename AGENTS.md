@@ -1,158 +1,74 @@
 # Agent Instructions
 
-If a user asks you to install an expert or the Experts helper from this repo, do it directly.
+This repo is a Claude Code plugin marketplace. Each expert is a plugin under `plugins/<name>/`.
 
-When the install request includes a repository URL, treat that URL as the canonical source. Do not search for,
-prefer, or announce an existing local checkout such as `~/Projects/Experts` unless the user explicitly asks to
-use local files.
-
-This repo is designed for AI coding-agent harnesses first. Codex and Claude adapters are built in, but the durable interface is the harness-neutral `.agents` tree:
-
-- `$HOME/.agents/skills/<name>/SKILL.md`
-- `$HOME/.agents/knowledge/<domain>/`
-- `$HOME/.agents/toolkits/experts/manifest.json`
-- `$HOME/.agents/toolkits/experts/adapter.md`
-
-Other harnesses such as Pi, OpenCode, Hermes, or future agents should load those portable files and adapt their own native agent format around them.
-
-The intended first-time user prompts are simple:
-
-```text
-Install Experts from https://github.com/Integral-Dragon/Experts
-Install the Codex expert from https://github.com/Integral-Dragon/Experts
-```
-
-Treat `Install Experts ...` as a request to install the shared Experts helper, not every expert.
+If a user asks to install Experts or any specific expert from this repo, do it directly with the native Claude Code plugin commands.
 
 ## Install Flow
 
-1. Clone or fetch the repository URL from the user's prompt, then work from that remote-synced checkout.
-2. From the repo root, list experts if needed:
+1. Register the marketplace (idempotent):
 
-```bash
-./install.sh --list
+   ```bash
+   ./install.sh
+   ```
+
+   This runs `claude plugin marketplace add <repo>` (or `update` if already registered).
+
+2. Install a specific expert:
+
+   ```bash
+   claude plugin install <expert-name>@experts
+   ```
+
+   The plugin installs disabled.
+
+3. Enable / disable:
+
+   ```bash
+   claude plugin enable  <expert-name>@experts
+   claude plugin disable <expert-name>@experts
+   ```
+
+   Restart Claude Code (or open a new session) for the change to take effect.
+
+4. Install every expert (still disabled):
+
+   ```bash
+   ./install.sh --install-all
+   ```
+
+5. List available experts in this marketplace:
+
+   ```bash
+   ./install.sh --list
+   ```
+
+## Layout
+
+```
+.claude-plugin/marketplace.json   marketplace manifest (lists all plugins)
+plugins/<name>/.claude-plugin/plugin.json
+plugins/<name>/skills/<name>/SKILL.md
+plugins/<name>/agents/<name>.md
+install.sh                        thin marketplace bootstrap
 ```
 
-3. Install the requested expert:
+No file-copy install paths to `~/.claude/agents/` or `~/.claude/skills/`. Plugins live under `~/.claude/plugins/cache/experts/` after install. Toggling them is a native operation.
 
-```bash
-./install.sh --expert <expert-name> --hydrate
-```
+## Adding a New Expert
 
-If the user asked only for the shared helper, run:
+1. `mkdir -p plugins/<name>/{.claude-plugin,skills/<name>,agents}`
+2. Author `plugins/<name>/.claude-plugin/plugin.json`, `plugins/<name>/skills/<name>/SKILL.md`, and `plugins/<name>/agents/<name>.md`.
+3. Add an entry to `plugins[]` in `.claude-plugin/marketplace.json`.
+4. Validate:
 
-```bash
-./install.sh --experts-toolkit-only
-```
+   ```bash
+   claude plugin validate .
+   claude plugin validate plugins/<name>
+   ```
 
-Installing an expert also installs or refreshes the single shared Experts helper by default. It does not create one helper per expert. The helper remembers this repo URL, syncs a working checkout from it, and lets future sessions handle prompts like:
+5. Optionally publish via `git commit && git push`. For local-only experts, leave them uncommitted; the marketplace still serves them from the working tree.
 
-```text
-Experts: list available experts
-Experts: install <expert>
-Experts: create a new expert for <domain>
-Experts: update from the repo
-```
+## Source Discipline
 
-Harness-specific aliases such as `$experts` or `@experts` are optional adapter conveniences, not the portable interface. In Claude or any harness without dollar-prefixed routing, use ordinary natural language that names the Experts helper.
-
-For Experts helper workflows, sync from the remembered repo URL first, then discover available experts with:
-
-```bash
-./install.sh --list
-```
-
-4. If network access is unavailable, omit hydration:
-
-```bash
-./install.sh --expert <expert-name>
-```
-
-5. Tell the user to restart or reload the relevant agent harness if the expert or shared Experts helper does not appear immediately.
-
-Skip the helper only when explicitly requested:
-
-```bash
-./install.sh --expert <expert-name> --no-experts-toolkit
-```
-
-Install only the shared helper when requested:
-
-```bash
-./install.sh --experts-toolkit-only
-```
-
-Install all experts only when the user asks:
-
-```bash
-./install.sh --all --hydrate
-```
-
-Use dry-run for inspection:
-
-```bash
-./install.sh --expert <expert-name> --dry-run
-```
-
-## Installed Locations
-
-The installer writes to the active user's home directory:
-
-| Artifact | Destination |
-| --- | --- |
-| Skills | `$HOME/.agents/skills/<expert>/` |
-| Knowledge manifests and sync scripts | `$HOME/.agents/knowledge/<domain>/` |
-| Codex custom agents | `$HOME/.codex/agents/<expert>.toml` |
-| Claude agents | `$HOME/.claude/agents/<expert>.md` |
-| Shared Experts helper skill | `$HOME/.agents/skills/experts/` |
-| Experts helper state | `$HOME/.agents/knowledge/experts/install-state.env` |
-| Experts harness manifest | `$HOME/.agents/toolkits/experts/manifest.json` |
-| Experts generic adapter contract | `$HOME/.agents/toolkits/experts/adapter.md` |
-| Experts Codex agent | `$HOME/.codex/agents/experts.toml` |
-| Experts Claude agent | `$HOME/.claude/agents/experts.md` |
-
-Codex custom agents are rendered from templates so paths use the installing user's `$HOME`.
-
-For harnesses without a native adapter in this repo, use `$HOME/.agents/toolkits/experts/adapter.md` as the integration contract. Do not treat Codex or Claude as the only supported interfaces.
-
-## Context Rule
-
-Do not bulk-load hydrated upstream docs. Start with the expert's skill and `knowledge/official-sources.md`, then read only the specific official docs or source files needed.
-
-## Add A New Expert
-
-If a user says `Create a new expert for <domain>`, follow [templates/CREATE_EXPERT.md](templates/CREATE_EXPERT.md).
-
-Expected flow:
-
-1. Clarify scope only when needed.
-2. Clarify delivery only when needed: local-only, private/internal, or PR back to this repo.
-3. Identify or propose official docs, source repos, specs, or user-approved authoritative sources.
-4. Scaffold with `scripts/scaffold-expert.sh`.
-5. Fill the source manifest, consulting playbook, sync script, skill, and relevant harness adapters.
-6. Update the README Expert Index only for shared-repo or PR work.
-7. Validate before installing, committing, or opening a PR.
-
-Do not assume publishing. For local-only experts, install them and stop. Commit, push, or open a PR only when the user asks for that outcome.
-
-For file-level requirements, follow [templates/EXPERT_BLUEPRINT.md](templates/EXPERT_BLUEPRINT.md).
-
-Each expert package must have:
-
-```text
-experts/<expert-name>/
-  skill/SKILL.md
-  skill/agents/openai.yaml
-  knowledge/official-sources.md
-  knowledge/consulting-playbook.md
-  knowledge/scripts/sync-*.sh
-  agents/codex/<expert-name>.toml.template
-  agents/claude/<expert-name>.md
-```
-
-Validate before installing, committing, or opening a PR:
-
-```bash
-./install.sh --expert <expert-name> --dry-run
-bash -n experts/<expert-name>/knowledge/scripts/sync-<domain>-docs.sh
-```
+Skills and subagents reference official sources for their domain. Hydrated upstream docs typically live at `$HOME/.agents/knowledge/<domain>/` (managed separately). Skills and agents in this repo should cite official paths and live URLs rather than embedding upstream content.

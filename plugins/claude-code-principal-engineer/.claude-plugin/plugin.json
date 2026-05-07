@@ -1,0 +1,8 @@
+{
+  "name": "claude-code-principal-engineer",
+  "description": "Principal-engineer expertise for Claude Code: CLI, IDE, plugins, hooks, subagents, MCP, settings, sandboxing, and security.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Integral Dragon"
+  }
+}

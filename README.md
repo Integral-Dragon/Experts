@@ -1,69 +1,77 @@
 # Experts
 
-Expert packs for AI coding agents.
+Domain expert packs for AI coding agents, packaged as a Claude Code plugin marketplace.
+
+Each expert is a plugin with a focused skill plus a matching subagent grounded in official sources. Plugins install disabled — turn on what you want, when you want, with native `claude plugin` commands.
 
 ## Available Experts
 
-| Expert | Description |
-|--------|-------------|
-| **claude-code-principal-engineer** | Claude Code expert for CLI, IDE, Desktop, Web/cloud, permissions, settings, CLAUDE.md, skills, subagents, hooks, MCP, plugins, Agent SDK, CI/CD, and sandboxing. |
-| **codex-principal-engineer** | OpenAI Codex expert for CLI, sandboxing, approvals, config, AGENTS.md, rules, skills, plugins, MCP, subagents, app, IDE, cloud, SDK, and non-interactive workflows. |
-| **firecracker-principal-engineer** | Firecracker expert for microVM architecture, APIs, security model, jailer behavior, networking, storage, snapshots, and source-grounded operations. |
-| **hermes-agent-principal-engineer** | Hermes Agent expert for architecture, runtime, integrations, UI/UX/DX/TUI, product behavior, memory, skills, gateway, security, and operations. |
-| **linux-systems-principal-engineer** | Linux systems expert for kernel, systemd, networking, nftables, QEMU, OCI runtime behavior, and production systems debugging. |
-| **oxv2-principal-engineer** | oxv2 expert for event-sourced multi-agent orchestration, seguro VM runners, complex/cx event ingestion, workflows, runtimes, storage, APIs, git integration, and source operations. |
-| **pi-principal-engineer** | Pi coding agent expert for CLI/TUI workflows, providers, settings, sessions, context files, skills, extensions, packages, SDK, RPC, JSON mode, terminal setup, and source operations. |
+| Expert | Focus |
+|---|---|
+| `claude-code-principal-engineer` | Claude Code CLI/IDE/Desktop/Web, settings, CLAUDE.md, permissions, sandboxing, hooks, skills, subagents, plugins, MCP, Agent SDK. |
+| `codex-principal-engineer` | OpenAI Codex CLI, sandboxing, approvals, AGENTS.md, rules, skills, plugins, MCP, subagents, custom agents, non-interactive exec. |
+| `firecracker-principal-engineer` | Firecracker microVM architecture, API, jailer, KVM/VMM internals, networking, storage, snapshots, MMDS, seccomp. |
+| `hermes-agent-principal-engineer` | Hermes Agent: architecture, runtime, integrations, UI/UX/DX/TUI, product behavior, memory, skills, gateway, security. |
+| `linux-systems-principal-engineer` | Linux systems, KVM, virtualization, containers, namespaces, cgroups, networking, routing, nftables, iproute2, systemd, Debian admin. |
+| `pi-principal-engineer` | Pi coding agent: CLI/TUI, providers, settings, sessions, skills, extensions, packages, SDK/RPC, terminal setup. |
 
-## Quick Start
+## Install
 
-Prompt your agent like this:
-
-```text
-Install Experts from https://github.com/Integral-Dragon/Experts
+```bash
+git clone https://github.com/Integral-Dragon/Experts.git
+cd Experts
+./install.sh
 ```
 
-That installs the shared Experts helper. After that, use whichever form your agent supports.
+That registers this repo as a Claude Code marketplace named `experts`. From then on, manage everything natively:
 
-## Use It
-
-Portable:
-
-```text
-Use the Experts helper to list available experts.
-Use the Experts helper to install the Codex expert.
-Use the Experts helper to create a new expert for Shopify.
-Use the Experts helper to update from the repo.
+```bash
+claude plugin list
+claude plugin install <name>@experts          # adds to installed set, disabled
+claude plugin enable  <name>@experts          # turn on
+claude plugin disable <name>@experts          # turn off
+claude plugin uninstall <name>@experts
 ```
 
-Codex-style skill shortcut:
+To install every expert at once (still disabled):
 
-```text
-$experts list available experts
-$experts install the Firecracker expert
+```bash
+./install.sh --install-all
 ```
 
-Claude-style agent prompt:
+To list available experts:
 
-```text
-/Experts list available experts.
-/Experts install the Linux systems expert.
+```bash
+./install.sh --list
 ```
 
-Slash-command or plugin-style harnesses may expose their own equivalent, such as `/experts ... /experts:list /experts:install Firecracker expert` etc. depending on your chosen agent/harness.
+Restart Claude Code (or run `/reload-plugins`) for enable/disable changes to take effect.
 
-## What It Does
+## Adding A New Expert
 
-Experts installs agent-usable specialist packs:
+Create `plugins/<name>/` with:
 
-- a focused skill,
-- source-of-truth notes,
-- optional hydrated official docs,
-- harness adapters where supported.
+```
+plugins/<name>/
+  .claude-plugin/plugin.json     # name, description, version, author
+  skills/<name>/SKILL.md         # the skill (frontmatter: name, description)
+  agents/<name>.md               # the subagent (frontmatter: name, description)
+```
 
-It also installs one shared Experts helper. The helper remembers this repo, syncs the latest version before list/install/create operations, and discovers available experts from the repo. It is not required for agents to use Experts if they can read and use the files directly.
+Then add an entry to `.claude-plugin/marketplace.json` under `plugins[]`:
 
-## For Agents
+```json
+{
+  "name": "<name>",
+  "description": "...",
+  "source": "./plugins/<name>",
+  "category": "..."
+}
+```
 
-Read [AGENTS.md](AGENTS.md), then do the requested install directly.
+Validate:
 
-For harnesses without a native adapter, use the generic contract at [toolkits/experts/harness/adapter.md](toolkits/experts/harness/adapter.md).
+```bash
+claude plugin validate .
+claude plugin validate plugins/<name>
+```

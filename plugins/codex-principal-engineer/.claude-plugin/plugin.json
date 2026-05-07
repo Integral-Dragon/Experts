@@ -1,0 +1,8 @@
+{
+  "name": "codex-principal-engineer",
+  "description": "Principal-engineer expertise for OpenAI Codex: CLI, sandboxing, approvals, AGENTS.md, skills, plugins, MCP, subagents.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Integral Dragon"
+  }
+}
